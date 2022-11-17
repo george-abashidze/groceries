@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="android.content.Context"/>
+        <import type="android.text.Html"/>
+        <import type="com.example.groceries.R"/>
+        <import type="android.view.View"/>
+        <variable
+            name="product"
+            type="com.example.groceries.data.model.JoinCartProduct" />
+    </data>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:background="@{product.stateChanged ? context.getDrawable(R.drawable.pending) : context.getDrawable(R.color.white)}"
+        tools:ignore="RtlSymmetry"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        android:weightSum="1">
+        <TextView
+            android:paddingEnd="5dp"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:layout_weight=".2"
+            android:text="@{product.productName}"
+            android:textSize="16sp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+
+        </TextView>
+        <TextView
+            android:paddingEnd="5dp"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:layout_weight=".2"
+            android:text='@{String.format("%.2f",product.unitPrice)}'
+            android:textSize="16sp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+        </TextView>
+
+        <TextView
+            android:paddingEnd="5dp"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:layout_weight=".2"
+            android:text='@{String.format("%.2f",product.quantity > 0 ? product.unitPrice * product.quantity : product.unitPrice)}'
+            android:textSize="16sp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+        </TextView>
+        <TextView
+            android:paddingEnd="5dp"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:text="@{product.categoryName}"
+            android:layout_weight=".2"
+            android:textSize="16sp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            >
+        </TextView>
+        <LinearLayout
+            android:gravity="center"
+            android:layout_weight=".2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <ImageButton
+                android:foreground="?attr/selectableItemBackground"
+                android:visibility="@{product.quantity > 0 ? View.VISIBLE:View.GONE}"
+                android:id="@+id/btnDecrement"
+                android:backgroundTint="@android:color/transparent"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_remove"
+                android:layout_width="50dp"
+                android:layout_height="50dp"/>
+            <TextView
+                android:visibility="@{product.quantity > 0 ? View.VISIBLE:View.GONE}"
+                android:text="@{String.valueOf(product.quantity)}"
+                android:layout_marginHorizontal="10dp"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <ImageButton
+                android:foreground="?attr/selectableItemBackground"
+                android:backgroundTint="@android:color/transparent"
+                android:visibility="@{product.quantity > 0 ? View.VISIBLE:View.GONE}"
+                android:id="@+id/btnIncrement"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_add"
+                android:layout_width="50dp"
+                android:layout_height="50dp"/>
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="50dp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</layout>
